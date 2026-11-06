@@ -1,1 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>City Hospital</title>
+<style>
+body{font-family:Arial;background:#eef2f7;margin:0}
+.header{background:#0d6efd;color:white;padding:20px;text-align:center}
+.menu{display:flex;justify-content:center;gap:10px;margin:15px}
+.menu button{padding:10px 18px;border:none;border-radius:20px;background:white;cursor:pointer;font-weight:bold}
+.card{background:white;margin:15px auto;padding:20px;border-radius:15px;max-width:500px}
+input,select{width:100%;padding:10px;margin:8px 0;border:1px solid #ccc;border-radius:8px;box-sizing:border-box}
+.btn{width:100%;padding:12px;background:#198754;color:white;border:none;border-radius:8px;font-size:16px;cursor:pointer}
+.btn2{background:#0d6efd}
+table{width:100%;border-collapse:collapse}
+th,td{border:1px solid #ddd;padding:8px;font-size:14px}
+th{background:#0d6efd;color:white}
+.doctor{background:#f8f9fa;padding:10px;border-radius:10px;margin:8px 0;display:flex;justify-content:space-between}
+</style>
+</head>
+<body>
 
+<div class="header"><h1>🏥 City Hospital</h1><p>Hospital Management System</p></div>
+
+<div class="menu">
+<button onclick="document.getElementById('home').style.display='block';document.getElementById('app').style.display='none';document.getElementById('list').style.display='none';document.getElementById('bill').style.display='none';">Home</button>
+<button onclick="document.getElementById('home').style.display='none';document.getElementById('app').style.display='block';document.getElementById('list').style.display='none';document.getElementById('bill').style.display='none';">Appointment</button>
+<button onclick="document.getElementById('home').style.display='none';document.getElementById('app').style.display='none';document.getElementById('list').style.display='block';document.getElementById('bill').style.display='none';">Patient List</button>
+<button onclick="document.getElementById('home').style.display='none';document.getElementById('app').style.display='none';document.getElementById('list').style.display='none';document.getElementById('bill').style.display='block';">Bill</button>
+</div>
+
+<div id="home" class="card">
+<h2>Welcome to City Hospital</h2>
+<p>✅ 24x7 Emergency<br>✅ Expert Doctors<br>✅ Online Appointment</p>
+<h3>Our Doctors</h3>
+<div class="doctor"><span>👨‍⚕️ Dr. Patil - General</span><b>₹300</b></div>
+<div class="doctor"><span>👩‍⚕️ Dr. Sharma - Child</span><b>₹400</b></div>
+<div class="doctor"><span>👨‍⚕️ Dr. Kulkarni - Heart</span><b>₹500</b></div>
+<button class="btn btn2" onclick="document.getElementById('home').style.display='none';document.getElementById('app').style.display='block';">Book Appointment ➜</button>
+</div>
+
+<div id="app" class="card" style="display:none">
+<h2>📅 Book Appointment</h2>
+<input id="pname" placeholder="Patient Nav - Ex: Rahul Patil">
+<input id="pmobile" placeholder="Mobile No" type="number">
+<select id="pdoctor"><option>Dr. Patil - General - ₹300</option><option>Dr. Sharma - Child - ₹400</option><option>Dr. Kulkarni - Heart - ₹500</option></select>
+<input id="pdate" type="date">
+<button class="btn" onclick="book()">Book Appointment</button>
+<p id="msg" style="color:green;font-weight:bold;text-align:center"></p>
+</div>
+
+<div id="list" class="card" style="display:none">
+<h2>🧑‍🤝‍🧑 Patient List</h2>
+<p>Total Patients: <b id="count">0</b></p>
+<table><tr><th>Nav</th><th>Mobile</th><th>Doctor</th><th>Date</th></tr><tbody id="tbody"></tbody></table>
+</div>
+
+<div id="bill" class="card" style="display:none">
+<h2>🧾 Generate Bill</h2>
+<input id="bname" placeholder="Patient Nav - Ex: Rahul Patil">
+<select id="btype"><option value="300">General - ₹300</option><option value="400">Child - ₹400</option><option value="500">Heart - ₹500</option><option value="1000">Blood Test - ₹1000</option><option value="2000">X-Ray - ₹2000</option></select>
+<input id="bmed" placeholder="Medicine ₹" type="number" value="0">
+<button class="btn" onclick="makeBill()">Generate Bill</button>
+<div id="billOut" style="margin-top:15px;background:#f8f9fa;padding:15px;border-radius:10px"></div>
+</div>
+
+<script>
+function book(){
+  let n=document.getElementById('pname').value;
+  let m=document.getElementById('pmobile').value;
+  let d=document.getElementById('pdoctor').value;
+  let dt=document.getElementById('pdate').value;
+  if(!n||!m||!dt){alert('Sagla bhara!');return;}
+  document.getElementById('count').innerText=Number(document.getElementById('count').innerText)+1;
+  document.getElementById('tbody').innerHTML+='<tr><td>'+n+'</td><td>'+m+'</td><td>'+d+'</td><td>'+dt+'</td></tr>';
+  document.getElementById('msg').innerText='✅ Appointment Booked! '+n;
+}
+function makeBill(){
+  let n=document.getElementById('bname').value || 'Patient';
+  let fees=Number(document.getElementById('btype').value);
+  let med=Number(document.getElementById('bmed').value)||0;
+  let total=fees+med;
+  document.getElementById('billOut').innerHTML='<b>Patient:</b> '+n+'<br><b>Fees:</b> ₹'+fees+'<br><b>Medicine:</b> ₹'+med+'<br><hr><b>Total: ₹'+total+'</b>';
+}
+</script>
+</body>
+</html>
