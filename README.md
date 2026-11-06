@@ -1,2 +1,2 @@
 # hospital-management-system
-Hospital Management System - Java Project for Patient and Doctor Management
+Hospital Management System - HTML, CSS, JavaScript Project for Patient and Doctor Management
